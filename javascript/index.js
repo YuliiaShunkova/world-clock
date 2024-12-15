@@ -28,11 +28,15 @@ function updateTime() {
 
 function updateCity(event) {
   let cityTimezone = event.target.value;
-  let cityName = Array.from(event.target.options).find(
-    (option) => option.value == cityTimezone
-  ).text;
+  let cityName;
+
   if (cityTimezone === "current") {
     cityTimezone = moment.tz.guess();
+    cityName = cityTimezone.replace("_", " ").split("/").pop();
+  } else {
+    cityName = Array.from(event.target.options).find(
+      (option) => option.value == cityTimezone
+    ).text;
   }
 
   let cityTime = moment().tz(cityTimezone);
